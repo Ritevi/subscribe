@@ -1,0 +1,16 @@
+<div class="container" style="list-style-type: none;">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <!-- Navbar content -->
+        <li><a href="/">Главная</a></li>
+    <% if (user) { %>
+            <li><a href="/account"><%= user %></a></li>
+    <% } %>
+        <% if (user) { %>
+            <form id="logout" method=POST action=/logout>
+                <li><a href="" onclick="$('#logout').submit();return false;">Выйти</a></li>
+            </form>
+        <% } else { %>
+            <li><a href="/login">Войти</a></li>
+        <% } %>
+    </nav>
+</div>
