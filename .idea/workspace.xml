@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="120e0208-9995-405c-83f2-efc9336bf09d" name="Default Changelist" comment="" />
+    <list default="true" id="120e0208-9995-405c-83f2-efc9336bf09d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/merchant/result.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/merchant/subscribe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/freeKassa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/merchant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Db.js" beforeDir="false" afterPath="$PROJECT_DIR$/Db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/checkAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/checkAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/loadUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/loadUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/stylesheets/login/login_style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/stylesheets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/account.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/account.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/topNavigator.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/topNavigator.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/register.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.ejs" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +38,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1R1lVFnrACIeiMMBk8BjBz3yVSR" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.15.0" />
@@ -58,10 +85,22 @@
       <option name="presentableId" value="Default" />
       <updated>1568842505572</updated>
       <workItem from="1568842518218" duration="49971000" />
+      <workItem from="1569175278591" duration="31237000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

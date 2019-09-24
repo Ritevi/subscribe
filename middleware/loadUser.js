@@ -1,15 +1,19 @@
 var User = require('../models').User;
 
 module.exports = function(req, res, next) {
-    req.user = res.locals.user = null;
+    req.email = res.locals.email= null;
+    req.end_date = res.locals.end_date = null;
+    req.username = res.locals.username = null;
 
-    if (!req.session.user) return next();
+    if (!req.session.email) return next();
     User.findOne({where:{
-            username:req.session.user
+            email:req.session.email
         }})
         .then(user=>{
             if(user){
-                req.user = res.locals.user = user.get('username');
+                req.email = res.locals.email= user.get('email');
+                req.end_date = res.locals.end_date = user.get('end_date');
+                req.username = res.locals.username = user.get('username');
                 next();
             } else {
                 next();

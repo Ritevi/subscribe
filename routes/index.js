@@ -3,12 +3,13 @@ var router = express.Router();
 var registerController = require('../controllers/register');
 var loginController = require('../controllers/login');
 var logoutController = require("../controllers/logout");
+var AuthMiddleware = require("../middleware/checkAuth");
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/account', function(req, res, next) {
+router.get('/account',AuthMiddleware, function(req, res, next) {
   res.render('account',{ title: '' });
 });
 

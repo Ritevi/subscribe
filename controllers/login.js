@@ -1,6 +1,14 @@
 var User = require('../models').User;
 var AuthError = require('../models').AuthError;
 
+var sendError = function(status,message) {
+    let error = new Error;
+    error.status=status;
+    error.message = message;
+    return (error);
+};
+
+
 exports.get = function(req,res){
     res.render('login');
 };
@@ -16,10 +24,23 @@ exports.post = function (req,res,next) {
             return next(err);
         }
         if(data) {
-            req.session.user = data.getDataValue('username');
-            res.send({});
+            User.checkSubscribe(data.get('email'),(err,data)=>{
+                if(err){
+                    err.status = 404;
+                    return next(err);
+                }
+                if(data) {
+                    req.session.email = data.get('email');
+                    req.session.end_date = data.get('end_date');
+                    req.session.username = data.get('username');
+                    res.send({});
+                } else {
+                    next(sendError(401,'error in valid email'))
+                }
+            })
+
         } else {
-            let error = new err;
+            let error = new Error();
             error.status=401;
             error.message = 'no user';
             next(error);

@@ -9,5 +9,14 @@
     "user": "root",
     "database": "node",
     "password": "LJxiP:p0"
+  },
+  "kassa": {
+    "firstSecret": "a",
+    "secondSecret": "a",
+    "merchantId": "a",
+    "amount": {
+      "subscribe": 500
+    },
+    "ip": ["136.243.38.147","136.243.38.149", "136.243.38.150", "136.243.38.151", "136.243.38.189", "136.243.38.108"]
   }
 }

@@ -6,17 +6,17 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var Store = require('./libs/sessionStore')(session);
+var AuthMiddleware = require("./middleware/checkAuth");
 
 
 var indexRouter = require('./routes/index');
+var merchantRouter = require('./routes/merchant');
 
 var app = express();
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
-
-
 
 // view engine setup
 app.engine('ejs', require('ejs-locals'));
@@ -42,6 +42,7 @@ Store.sync();
 
 app.use(require('./middleware/loadUser'));
 app.use('/', indexRouter);
+app.use('/merchant',AuthMiddleware, merchantRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
