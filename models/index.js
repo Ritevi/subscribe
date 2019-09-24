@@ -166,7 +166,7 @@ User.checkSubscribe = function(email,cb){
                           }
                       })
               } else {
-                  cb(null,user.get('end_date'));
+                  cb(null,user);
               }
           } else {
               cb(new AuthError('no valid email'),null);
