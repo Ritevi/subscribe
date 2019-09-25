@@ -6,7 +6,7 @@
     "host": "localhost",
     "user": "root",
     "database": "node",
-    "password": "LJxiP:p0"
+    "password": ""
   },
   "kassa": {
     "firstSecret": "a",
