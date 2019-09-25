@@ -2,7 +2,7 @@
 <% block('title', "Регистрация") -%>
 
 <p>Введите данные пользователя.</p>
-<form class="form-horizontal login-form" name="login-form">
+<form class="form-horizontal reg-form" name="reg-form">
     <label for="input-username" class="col-lg-2 control-label">username</label>
 
     <div class="col-lg-10">
@@ -23,14 +23,13 @@
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-10">
             <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Регистрация</button>
-            <a href="/login" type="" class="btn btn-primary" data-loading-text="Отправляю...">Войти</a>
             <span class="help-block error"></span>
         </div>
     </div>
 </form>
 <div class="errors"> </div>
 <script>
-    $(document.forms['login-form']).on('submit', function() {
+    $(document.forms['reg-form']).on('submit', function() {
         var form = $(this);
         $('.error', form).html('');
         $(":submit", form).button("loading");

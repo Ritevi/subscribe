@@ -8,11 +8,6 @@ var sendError = function(status,message) {
     return (error);
 };
 
-
-exports.get = function(req,res){
-    res.render('login');
-};
-
 exports.post = function (req,res,next) {
     if(!req.body) next(AuthError('no users data'));
     var password = req.body.password;

@@ -1,9 +1,9 @@
 <div class="container" style="list-style-type: none;">
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
         <!-- Navbar content -->
-        <li class="col-10"><a href="/">Главная</a></li>
+        <li class="col-9"><a href="/">Главная</a></li>
     <% if (username) { %>
-            <li class="col-1"><a href="/account"><%= username %>
+            <li class="col-2"><a href="/account"><%= username %>
             <% if (end_date) { %>
             </a><p id="end_date"><%= end_date %></p></li>
                 <% }  else { %>
@@ -12,37 +12,65 @@
     <% } %>
         <% if (username) { %>
             <form id="logout" method=POST action=/logout>
-                <li class="col-1"><a href="" onclick="$('#logout').submit();return false;">Выйти</a></li>
+                <li class="col-2"><a href="" onclick="$('#logout').submit();return false;">Выйти</a></li>
             </form>
         <% } else { %>
-            <li><a href="/login">Войти</a></li>
+        <li>
+            <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Войти
+            </button>
+            <div class="dropdown-menu " style="width: 250px" aria-labelledby="dropdownMenuButton" style="width: 100px">
+                <p>Введите данные пользователя.</p>
+                <form class="form-horizontal login-form" name="login-form">
+                    <label for="input-username" class="col-lg-2 control-label">username</label>
+
+                    <div class="col-lg-10">
+                        <input name="username" value="" type="text" class="form-control" id="input-email" placeholder="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-password" class="col-lg-2 control-label">password</label>
+
+                        <div class="col-lg-10">
+                            <input name="password" value="" type="password" class="form-control" id="input-password" placeholder="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Войти</button>
+                            <a href="/register" type="" class="btn btn-primary" data-loading-text="Отправляю...">Регистрация</a>
+                            <span class="help-block error"></span>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="errors"> </div>
+            </div>
+            </div>
+        <li>
         <% } %>
     </nav>
 </div>
+
+
 <script>
-
-    function isValidDate(d) {
-        return d instanceof Date && !isNaN(d);
-    }
-
-
-    var date = new Date(document.getElementById('end_date').innerHTML);
+    let StrDate = document.getElementById('end_date').innerHTML;
+    if (StrDate!=="Нет подписки")  {
+        let date = new Date(StrDate);
     function calcDate(date1,date2) {
-        var diff = Math.floor(date1.getTime() - date2.getTime());
-        var second = 1000;
+        let diff = Math.floor(date1.getTime() - date2.getTime());
+        let second = 1000;
 
-        var seconds = Math.floor(diff/second);
-        var minutes = Math.floor(seconds/60);
-        var hours = Math.floor(minutes/60);
+        let seconds = Math.floor(diff/second);
+        let minutes = Math.floor(seconds/60);
+        let hours = Math.floor(minutes/60);
 
-        var message = '';
+        let message = '';
         message += hours + ":"
         message += minutes%60 + ":"
         message += seconds%(60)
         return message
     }
-    console.log();
-    if(date!==undefined && isValidDate(date)){
         function clock(end_date){
             let date = calcDate(end_date,new Date());
             document.getElementById('end_date').innerHTML = date;
@@ -52,18 +80,25 @@
         setInterval(()=>{clock(date)}, 1000);
     }
 
-
-
 </script>
-
 <script>
-    $(document).ready(function(){
-        $('#login-trigger').click(function(){
-            $(this).next('#login-content').slideToggle();
-            $(this).toggleClass('active');
-
-            if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
-            else $(this).find('span').html('&#x25BC;')
-        })
+    $(document.forms['login-form']).on('submit', function() {
+        let form = $(this);
+        $('.error', form).html('');
+        $(":submit", form).button("loading");
+        $.ajax({
+            url: "/login",
+            method: "POST",
+            data: form.serialize(),
+            complete: function(e, xhr, settings){
+                if(e.status === 200){
+                    form.html("Вы вошли в сайт").addClass('alert-success');
+                    window.location.href = "/account";
+                }else{
+                    $('.error').append(e.responseText);
+                }
+            }
+        });
+        return false;
     });
 </script>

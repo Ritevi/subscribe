@@ -81,11 +81,16 @@ User.registration = function(username,password,email,hwid,cb) {
                                 }
                             })
                             .catch(function (err){
-                                async.map(err.errors, (elem, cb) => {
-                                    cb(null, elem.validatorName);
+                                async.map(err.errors, (elem, callback) => {
+                                    callback(null, elem.validatorName);
                                 }, (err, result) => {
                                     if(err) return cb(err,null);
-                                    cb(new AuthError('error in validation '+result.join(', ')), null);
+                                    console.log(result);
+                                    if(result!= '') {
+                                        cb(new AuthError('error in validation '+result.join(', ')), null);
+                                    } else {
+                                        cb(new AuthError('email or username are already taken '), null);
+                                    }
                                 });
 
                             })

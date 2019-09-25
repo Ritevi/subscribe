@@ -23,7 +23,6 @@ exports.post = function (req,res,next) {
             req.session.email = data.get('email');
             req.session.end_date = data.get('end_date');
             req.session.username = data.get('username');
-            console.log(data);
             res.send({});
         } else {
             next(sendError(401,'user already exist'))
