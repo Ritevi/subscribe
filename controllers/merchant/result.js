@@ -18,7 +18,7 @@ exports.post = function (req,res,next){
         let merchantId = req.query.MERCHANT_ID;
         let orderId = req.query.MERCHANT_ORDER_ID;
         if(merchantId===kassa.merchantId || sign ===kassa.getPaymentSign(amount,orderId)) {
-            if(amount==config.get("kassa:amount:subscribe")) {
+            if(amount===config.get("kassa:amount:subscribe")) {
                 User.subscribe(email,(err,data)=>{
                     if(err) return next(err);
                     if(data){

@@ -7,10 +7,12 @@ var logger = require('morgan');
 var session = require('express-session');
 var Store = require('./libs/sessionStore')(session);
 var AuthMiddleware = require("./middleware/checkAuth");
+var LoadUser = require('./middleware/loadUser');
 var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var merchantRouter = require('./routes/merchant');
+var authRouter = require('./routes/auth');
 
 var app = express();
 app.set('env',config.get('env'));
@@ -40,9 +42,9 @@ app.use(session({
 Store.sync();
 
 
-app.use(require('./middleware/loadUser'));
-app.use('/', indexRouter);
-app.use('/merchant',AuthMiddleware, merchantRouter);
+app.use('/',LoadUser, indexRouter);
+app.use('/merchant',[AuthMiddleware,LoadUser], merchantRouter);
+app.use('/',authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -37,7 +37,17 @@ User.init({
         }
     },
     hwid: {
-        type:Sequelize.CHAR(64)
+        type:Sequelize.CHAR(64),
+        validate: {
+            isUnique: (hwid)=> {
+                this.find({ where: { username: hwid }})
+                    .then(function (user) {
+                        if (user) {
+                            throw new AuthError("hwid is not unique");
+                        }
+                    });
+            }
+        }
     },
     end_date:{
         type:Sequelize.DATE
@@ -59,7 +69,10 @@ User.generateHash = function(password,cb){
 };
 
 User.prototype.validPassword = function(password,cb) {
-    return bcrypt.compare(password, this.password,cb);
+    bcrypt.compare(password, this.password,cb);
+};
+User.prototype.validhwid = function(hwid){
+  return this.getData("hwid")  === hwid;
 };
 
 User.registration = function(username,password,email,hwid,cb) {
@@ -85,7 +98,6 @@ User.registration = function(username,password,email,hwid,cb) {
                                     callback(null, elem.validatorName);
                                 }, (err, result) => {
                                     if(err) return cb(err,null);
-                                    console.log(result);
                                     if(result!= '') {
                                         cb(new AuthError('error in validation '+result.join(', ')), null);
                                     } else {
@@ -106,13 +118,33 @@ User.registration = function(username,password,email,hwid,cb) {
 };
 
 
-User.authorize = function(username,password, cb) {
+User.authorizeWithHwid = function(username,password,hwid, cb) {
   this.findOne({where:{username}})
       .then(user=>{
           if(user){
               user.validPassword(password,(err,res)=>{
                   if(res) {
-                      cb(null,user);
+                      if(user.hwid){
+                          if(user.validhwid(hwid)){
+                              cb(null,user);
+                          } else {
+                              cb(new AuthError('hwid is wrong'),null);
+                          }
+                      } else {
+                          user.hwid = hwid;
+                          user.save()
+                              .then((user)=>{
+                                  if(user) {
+                                      cb(null,user);
+                                  } else {
+                                      cb(null,null);
+                                  }
+                              })
+                              .catch((err)=>{
+                                  console.log(err);
+                                  return cb(err,null);
+                              })
+                      }
                   }
                   else {
                       cb(new AuthError('error in valid password'),null);
@@ -128,6 +160,29 @@ User.authorize = function(username,password, cb) {
       })
 };
 
+
+User.authorize = function(username,password, cb) {
+    this.findOne({where:{username}})
+        .then(user=>{
+            if(user){
+                user.validPassword(password,(err,res)=>{
+                    if(res) {
+                        cb(null,user);
+                    }
+                    else {
+                        cb(new AuthError('error in valid password'),null);
+                    }
+                })
+
+            } else {
+                cb(new AuthError("user doesn't exist"),null);
+            }
+        })
+        .catch(err=>{
+            cb(err,null);
+        })
+};
+
 User.subscribe = function(email,cb){
   this.findOne({where:{email}})
       .then((user)=>{
@@ -135,15 +190,16 @@ User.subscribe = function(email,cb){
               let tomorrow = new Date();
               tomorrow.setDate(tomorrow.getDate() + 1);
               user.end_date = tomorrow;
-              user.save().catch((err)=>{
-                  cb(err,null);
-              })
+              user.save()
                   .then((user)=>{
                       if(user) {
                           cb(null,user);
                       } else {
                           cb(null,null);
                       }
+                  })
+                  .catch((err)=>{
+                      cb(err,null);
                   })
           } else {
               cb(new AuthError('no valid email'),null);
