@@ -10,6 +10,8 @@ var AuthMiddleware = require("./middleware/checkAuth");
 var LoadUser = require('./middleware/loadUser');
 var config = require('./config');
 
+
+
 var indexRouter = require('./routes/index');
 var merchantRouter = require('./routes/merchant');
 var authRouter = require('./routes/auth');
