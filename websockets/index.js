@@ -14,7 +14,7 @@ module.exports = function (server) {
                 var event = JSON.parse(message);
                 if(event.type ==="countOfUsers")
                 {
-                    if(req.headers.sec_websocket_protocol) {
+                    if(req.headers.sec_websocket_protocol ==="hugerain") {
                         count++;
                     }
                     ws.send(JSON.stringify({type:"countOfUsers",count:count}).toString());
